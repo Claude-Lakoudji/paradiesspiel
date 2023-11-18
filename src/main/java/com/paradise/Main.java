@@ -1,4 +1,4 @@
-package main.java.com.paradise;
+package com.paradise;
 
 import main.java.com.paradise.enums.Color;
 
@@ -9,8 +9,8 @@ import java.util.Set;
 /**
  * The main program that initializes and starts the Paradise Game.
  *
- * @author Group036
- * @version 1.0
+ * @author Claude Lakoudji
+ * @version 0.1.0
  */
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class Main {
         Set<Color> usedColors = new HashSet<>();
         Color[] selectedColors = selectColors(scanner, numberOfPlayers, usedColors);
         displaySelectedColors(numberOfPlayers, selectedColors);
-        ParadiseGame game = new ParadiseGame("BLUE-A:50, BLUE-B:50, YELLOW-A:50, YELLOW-A:50", selectedColors);
+        main.java.com.paradise.ParadiseGame game = new main.java.com.paradise.ParadiseGame("BLUE-A:50, BLUE-B:50, YELLOW-A:50, YELLOW-A:50", selectedColors);
         game.start();
     }
 
