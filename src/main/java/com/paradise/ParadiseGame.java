@@ -1,9 +1,8 @@
-package main.java.com.paradise;
+package com.paradise;
 
-import main.java.com.paradise.enums.Color;
-
-import main.java.com.paradise.fields.*;
-import main.java.com.paradise.interfaces.IParadiseGame;
+import com.paradise.enums.Color;
+import com.paradise.fields.*;
+import com.paradise.interfaces.IParadiseGame;
 
 import java.util.*;
 

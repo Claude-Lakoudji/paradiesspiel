@@ -1,6 +1,6 @@
 package com.paradise;
 
-import main.java.com.paradise.enums.Color;
+import com.paradise.enums.Color;
 
 import java.util.HashSet;
 import java.util.Scanner;
@@ -22,7 +22,7 @@ public class Main {
         Set<Color> usedColors = new HashSet<>();
         Color[] selectedColors = selectColors(scanner, numberOfPlayers, usedColors);
         displaySelectedColors(numberOfPlayers, selectedColors);
-        main.java.com.paradise.ParadiseGame game = new main.java.com.paradise.ParadiseGame("BLUE-A:50, BLUE-B:50, YELLOW-A:50, YELLOW-A:50", selectedColors);
+        ParadiseGame game = new ParadiseGame("BLUE-A:50, BLUE-B:50, YELLOW-A:50, YELLOW-A:50", selectedColors);
         game.start();
     }
 

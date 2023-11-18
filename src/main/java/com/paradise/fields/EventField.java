@@ -1,6 +1,7 @@
-package main.java.com.paradise.fields;
+package com.paradise.fields;
 
-import main.java.com.paradise.Figure;
+
+import com.paradise.Figure;
 
 /**
  * The EventField class represents an event field on the game board.

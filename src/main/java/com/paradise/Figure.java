@@ -1,7 +1,8 @@
-package main.java.com.paradise;
+package com.paradise;
 
-import main.java.com.paradise.enums.Color;
-import main.java.com.paradise.fields.Field;
+
+import com.paradise.enums.Color;
+import com.paradise.fields.Field;
 
 import java.util.Arrays;
 

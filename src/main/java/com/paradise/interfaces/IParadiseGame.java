@@ -1,6 +1,6 @@
-package main.java.com.paradise.interfaces;
+package com.paradise.interfaces;
 
-import main.java.com.paradise.enums.Color;
+import com.paradise.enums.Color;
 
 public interface IParadiseGame {
 

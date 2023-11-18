@@ -1,6 +1,6 @@
-package main.java.com.paradise.fields;
+package com.paradise.fields;
 
-import main.java.com.paradise.Figure;
+import com.paradise.Figure;
 
 /**
  * The Field class represents a field on the game board. It is the

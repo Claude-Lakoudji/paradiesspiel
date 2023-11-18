@@ -1,4 +1,4 @@
-package main.java.com.paradise;
+package com.paradise;
 
 import java.util.Random;
 

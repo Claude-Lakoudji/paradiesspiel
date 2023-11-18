@@ -1,8 +1,6 @@
 package com.paradise;
-
-import main.java.com.paradise.ParadiseGame;
-import main.java.com.paradise.enums.Color;
-import main.java.com.paradise.interfaces.IParadiseGame;
+import com.paradise.enums.Color;
+import com.paradise.interfaces.IParadiseGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

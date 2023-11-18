@@ -1,6 +1,7 @@
-package main.java.com.paradise;
+package com.paradise;
 
-import main.java.com.paradise.enums.Color;
+
+import com.paradise.enums.Color;
 
 import java.util.ArrayList;
 import java.util.List;

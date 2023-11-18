@@ -1,6 +1,6 @@
-package main.java.com.paradise.fields;
+package com.paradise.fields;
 
-import main.java.com.paradise.Figure;
+import com.paradise.Figure;
 
 /**
  * The LuckField class represents an event field where a piece can change its

@@ -1,6 +1,6 @@
-package main.java.com.paradise.fields;
+package com.paradise.fields;
 
-import main.java.com.paradise.Figure;
+import com.paradise.Figure;
 
 /**
  * The ParadiseField class represents a special field on the game board where a piece can land.
