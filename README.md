@@ -20,7 +20,7 @@
 - **Luck**: The piece moves forward by the number rolled.
 - **Labyrinth**: The player skips a turn.
 - **Disaster**: The piece moves backward double the number rolled.
-- **Upswing**: If reached with double sixes, the piece moves directly to Paradise.
+- **AscensionField**: If reached with double sixes, the piece moves directly to Paradise.
 - **Restart**: The piece returns to the Start field.
 - **Paradise**: Reached only by an exact roll. If the roll is higher, the piece moves back.
 
