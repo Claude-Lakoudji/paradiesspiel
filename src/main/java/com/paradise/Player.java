@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Player {
     private final Color color;
-    private final List<Figure> figures;
+    private final List<Figurine> figurines;
 
     /**
      * Creates a new player with the specified color.
@@ -24,27 +24,27 @@ public class Player {
      */
     public Player(Color color) {
         this.color = color;
-        figures = new ArrayList<>();
-        figures.add(new Figure(color, color.name() + "-A"));
-        figures.add(new Figure(color, color.name() + "-B"));
+        figurines = new ArrayList<>();
+        figurines.add(new Figurine(color, color.name() + "-A"));
+        figurines.add(new Figurine(color, color.name() + "-B"));
     }
 
     public Color getColor() {
         return color;
     }
 
-    public List<Figure> getCharacters() {
-        return figures;
+    public List<Figurine> getCharacters() {
+        return figurines;
     }
 
     /**
-     * Returns the number of figures of the player that are in paradise.
+     * Returns the number of figurines of the player that are in paradise.
      *
-     * @return The number of figures in paradise.
+     * @return The number of figurines in paradise.
      */
     public int getNumberOfCharactersInParadise() {
         int count = 0;
-        for (Figure p : figures) {
+        for (Figurine p : figurines) {
             if (p.getPosition().getPositionNumber() == 63) {
                 count++;
             }
@@ -54,7 +54,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" + "color=" + color + ", pieces=" + figures + '}';
+        return "Player{" + "color=" + color + ", pieces=" + figurines + '}';
     }
 
 }

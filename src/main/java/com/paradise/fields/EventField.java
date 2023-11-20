@@ -1,7 +1,7 @@
 package com.paradise.fields;
 
 
-import com.paradise.Figure;
+import com.paradise.Figurine;
 
 /**
  * The EventField class represents an event field on the game board.
@@ -22,13 +22,13 @@ public class EventField extends Field {
     }
 
     /**
-     * Executes the event for the specified figure standing on this field.
+     * Executes the event for the specified figurine standing on this field.
      * This method should be overridden in subclasses to implement the specific
      * behavior for each type of event field.
      *
-     * @param figure The figure for which the event on the field should be executed.
+     * @param figurine The figurine for which the event on the field should be executed.
      */
-    public void executeEvent(Figure figure) {
+    public void executeEvent(Figurine figurine) {
     }
 
     @Override

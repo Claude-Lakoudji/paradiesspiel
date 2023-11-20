@@ -28,6 +28,6 @@ public enum Color {
     /**
      * The color White.
      */
-    WHITE;
+    WHITE
 
 }

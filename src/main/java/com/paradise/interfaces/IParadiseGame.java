@@ -13,14 +13,14 @@ public interface IParadiseGame {
      *
      * @return The color of the player currently taking their turn
      */
-    public Color getColorOnTurn();
+     Color getColorOnTurn();
 
     /**
      * This method assigns the turn to the specified color.
      *
      * @param color The color that will take the turn
      */
-    public void setColorOnTurn(Color color);
+     void setColorOnTurn(Color color);
 
     /**
      * This method returns the current position (field number) of the searched piece,
@@ -31,7 +31,7 @@ public interface IParadiseGame {
      * @return The current position or field number of the searched piece, or -1 if
      *         it does not exist
      */
-    public int getCharacterPosition(String character);
+     int getCharacterPosition(String character);
 
     /**
      * This method moves the specified piece to a new position. The number of squares
@@ -44,26 +44,26 @@ public interface IParadiseGame {
      *         false. The method also returns false if the desired piece could not
      *         be found.
      */
-    public boolean moveCharacter(String figure, int... dice);
+     boolean moveCharacter(String figure, int... dice);
 
     /**
      * This method returns the color of the winner.
      *
      * @return The color of the winner or null if there is no winner yet.
      */
-    public Color getWinner();
+     Color getWinner();
 
     /**
      * This method returns an array with the colors of all active players.
      *
      * @return An array with the colors of the players.
      */
-    public Color[] getAllPlayers();
+     Color[] getAllPlayers();
 
     /**
      * This method formats the game for output to a text console in a meaningful way.
      *
      * @return The game in text format
      */
-    public String toString();
+     String toString();
 }

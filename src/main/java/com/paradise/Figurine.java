@@ -7,14 +7,14 @@ import com.paradise.fields.Field;
 import java.util.Arrays;
 
 /**
- * The Figure class represents a figure in the game. Each figure has a color, a
+ * The Figurine class represents a figure in the game. Each figure has a color, a
  * name, a position on the game board, a target position, a number of steps to
  * the target, and the rolled dice values.
  *
  * @author Claude Lakoudji
  * @version 0.1.0
  */
-public class Figure {
+public class Figurine {
     private final Color color;
     private final String name;
     private Field position;
@@ -28,12 +28,12 @@ public class Figure {
      * @param color The color of the figure.
      * @param name  The name of the figure.
      */
-    public Figure(Color color, String name) {
+    public Figurine(Color color, String name) {
         this.color = color;
         this.name = name;
     }
 
-    // Getter and setter methods for various attributes of the Figure class.
+    // Getter and setter methods for various attributes of the Figurine class.
 
     public Color getColor() {
         return color;
@@ -96,7 +96,7 @@ public class Figure {
 
     @Override
     public String toString() {
-        return "Figure{" + "color=" + color + ", name='" + name + '\'' + ", position=" + position
+        return "Figurine{" + "color=" + color + ", name='" + name + '\'' + ", position=" + position
                 + ", stepsToTarget=" + stepsToTarget + ", targetPositionNumber=" + targetPositionNumber
                 + ", diceValues=" + Arrays.toString(diceValues) + '}';
     }

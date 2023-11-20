@@ -41,7 +41,7 @@ public class ParadiseGame implements IParadiseGame {
 
     public int getCharacterPosition(String character) {
         for (Player player : players) {
-            for (Figure c : player.getCharacters()) {
+            for (Figurine c : player.getCharacters()) {
                 if (c.getName().equals(character)) {
                     return c.getPosition().getPositionNumber();
                 }
@@ -51,19 +51,19 @@ public class ParadiseGame implements IParadiseGame {
     }
 
     public boolean moveCharacter(String character, int... diceRolls) {
-        Figure figureToMove = getFigureByName(character);
+        Figurine figurineToMove = getFigureByName(character);
 
-        if (shouldNotMoveFigure(figureToMove)) {
+        if (shouldNotMoveFigure(figurineToMove)) {
             return false;
         }
 
         int totalSteps = diceRolls[0] + diceRolls[1];
-        figureToMove.setDiceValues(diceRolls);
+        figurineToMove.setDiceValues(diceRolls);
         Field currentPosition;
 
         for (int i = 1; i <= totalSteps; i++) {
-            currentPosition = figureToMove.getPosition();
-            currentPosition.moveToNextOrPrev(figureToMove);
+            currentPosition = figurineToMove.getPosition();
+            currentPosition.moveToNextOrPrev(figurineToMove);
         }
 
         return true;
@@ -134,7 +134,7 @@ public class ParadiseGame implements IParadiseGame {
             boolean successfullyMoved = moveCharacter(figureName, totalRoll);
 
             if (!successfullyMoved) {
-                System.out.println("Figure not found or couldn't be moved.");
+                System.out.println("Figurine not found or couldn't be moved.");
             }
 
             // Check for game end
@@ -168,8 +168,8 @@ public class ParadiseGame implements IParadiseGame {
         // Print figures
         StringBuilder figuresString = new StringBuilder("Figures:\n");
         for (Player player : players) {
-            for (Figure figure : player.getCharacters()) {
-                figuresString.append(String.format("%s: %d\n", figure.getName(), figure.getPosition().getPositionNumber()));
+            for (Figurine figurine : player.getCharacters()) {
+                figuresString.append(String.format("%s: %d\n", figurine.getName(), figurine.getPosition().getPositionNumber()));
             }
         }
 
@@ -197,7 +197,7 @@ public class ParadiseGame implements IParadiseGame {
             } else if (i == 24 || i == 41 || i == 54) {
                 field = new Field(i); // Disaster TODO
             } else if (i == 52) {
-                field = new AscensionField(i);
+                field = new UpturnField(i);
             } else if (i == 58) {
                 field = new Field(i); // New Beginning TODO
             } else if (i == 63) {
@@ -232,8 +232,8 @@ public class ParadiseGame implements IParadiseGame {
      */
     private void placePlayerFiguresOnStartField() {
         for (Player player : players) {
-            for (Figure figure : player.getCharacters()) {
-                figure.setPosition(gameBoard.get(0));
+            for (Figurine figurine : player.getCharacters()) {
+                figurine.setPosition(gameBoard.get(0));
             }
         }
     }
@@ -246,8 +246,8 @@ public class ParadiseGame implements IParadiseGame {
      */
     private void placePlayerFiguresWithConfigOnStartField(String config) {
         for (Player player : players) {
-            for (Figure figure : player.getCharacters()) {
-                figure.setPosition(gameBoard.get(0));
+            for (Figurine figurine : player.getCharacters()) {
+                figurine.setPosition(gameBoard.get(0));
             }
         }
 
@@ -255,9 +255,9 @@ public class ParadiseGame implements IParadiseGame {
             String[] parts = figureConfig.split(":");
             String name = parts[0];
             int position = Integer.parseInt(parts[1]);
-            Figure figure = getFigureByName(name);
-            if (figure != null) {
-                figure.setPosition(gameBoard.get(position));
+            Figurine figurine = getFigureByName(name);
+            if (figurine != null) {
+                figurine.setPosition(gameBoard.get(position));
             }
         }
     }
@@ -269,9 +269,9 @@ public class ParadiseGame implements IParadiseGame {
      * @return The figure with the given name, or null if no figure with the name
      *         was found.
      */
-    private Figure getFigureByName(String figureName) {
+    private Figurine getFigureByName(String figureName) {
         for (Player player : players) {
-            Optional<Figure> optionalFigure = player.getCharacters().stream().filter(f -> f.getName().equals(figureName))
+            Optional<Figurine> optionalFigure = player.getCharacters().stream().filter(f -> f.getName().equals(figureName))
                     .findFirst();
             if (optionalFigure.isPresent()) {
                 return optionalFigure.get();
@@ -283,17 +283,17 @@ public class ParadiseGame implements IParadiseGame {
     /**
      * This method checks if the figure should not be moved.
      *
-     * @param figureToMove The figure to be moved
+     * @param figurineToMove The figure to be moved
      * @return true if the figure should not be moved, otherwise false
      */
-    private boolean shouldNotMoveFigure(Figure figureToMove) {
-        if (figureToMove == null) {
+    private boolean shouldNotMoveFigure(Figurine figurineToMove) {
+        if (figurineToMove == null) {
             return true;
         }
 
-        boolean wrongFigureSelected = !(figureToMove.getColor().equals(currentPlayer.getColor()));
+        boolean wrongFigureSelected = !(figurineToMove.getColor().equals(currentPlayer.getColor()));
         boolean thereIsAWinner = (getWinner() != null);
-        boolean figureIsAlreadyInParadise = figureToMove.getPosition() instanceof ParadiseField;
+        boolean figureIsAlreadyInParadise = figurineToMove.getPosition() instanceof ParadiseField;
 
         return (wrongFigureSelected || thereIsAWinner || figureIsAlreadyInParadise);
     }

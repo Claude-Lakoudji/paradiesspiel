@@ -1,6 +1,6 @@
 package com.paradise.fields;
 
-import com.paradise.Figure;
+import com.paradise.Figurine;
 
 /**
  * The ParadiseField class represents a special field on the game board where a piece can land.
@@ -26,15 +26,15 @@ public class ParadiseField extends Field {
      * Moves the piece to the previous field if it goes beyond the Paradise field
      * and updates the piece's target position accordingly.
      *
-     * @param figure figure to be moved.
+     * @param figurine figurine to be moved.
      *
      */
     @Override
-    public void moveToNextOrPrev(Figure figure) {
-        int stepsBeyondParadise = figure.getTargetPositionNumber() - this.getPositionNumber();
+    public void moveToNextOrPrev(Figurine figurine) {
+        int stepsBeyondParadise = figurine.getTargetPositionNumber() - this.getPositionNumber();
         if (stepsBeyondParadise > 0) {
-            figure.setTargetPositionNumber(this.getPositionNumber() - stepsBeyondParadise);
-            figure.setPosition(this.getPreviousField());
+            figurine.setTargetPositionNumber(this.getPositionNumber() - stepsBeyondParadise);
+            figurine.setPosition(this.getPreviousField());
         }
     }
 
