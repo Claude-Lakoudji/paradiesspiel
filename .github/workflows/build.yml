@@ -1,0 +1,27 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: debian:latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 18
+        uses: actions/setup-java@v2
+        with:
+          java-version: '18'
+          distribution: 'temurin'
+
+      - name: Install Maven
+        run: |
+          apt-get update
+          apt-get install -y maven
+
+      - name: Build with Maven
+        run: mvn install
