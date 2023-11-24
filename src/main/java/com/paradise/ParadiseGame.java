@@ -1,10 +1,18 @@
 package com.paradise;
 
 import com.paradise.enums.Color;
-import com.paradise.fields.*;
+import com.paradise.fields.BridgeField;
+import com.paradise.fields.Field;
+import com.paradise.fields.LuckField;
+import com.paradise.fields.ParadiseField;
+import com.paradise.fields.UpturnField;
 import com.paradise.interfaces.IParadiseGame;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 
 public class ParadiseGame implements IParadiseGame {
@@ -219,6 +227,7 @@ public class ParadiseGame implements IParadiseGame {
 
     /**
      * This method sets the players' figures on the start field.
+     * @param colors the colors of the players'figures
      */
     private void initializePlayers(Color... colors) {
         colorDice = new Dice(colors.length);

@@ -1,20 +1,14 @@
 package com.paradise;
 import com.paradise.enums.Color;
 import com.paradise.interfaces.IParadiseGame;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParadiseGameTest {
-    private IParadiseGame game;
-
-    @BeforeEach
-    void setUp() {
-        game = new ParadiseGame(
-                "BLUE-A:0, BLUE-B:62, YELLOW-A:45, YELLOW-B:40, BLACK-A:60, BLACK-B:63, GREEN-A:12, GREEN-B:10",
-                Color.BLUE, Color.YELLOW, Color.BLACK, Color.GREEN
-        );
-    }
+    private final IParadiseGame game = new ParadiseGame(
+            "BLUE-A:0, BLUE-B:62, YELLOW-A:45, YELLOW-B:40, BLACK-A:60, BLACK-B:63, GREEN-A:12, GREEN-B:10",
+            Color.BLUE, Color.YELLOW, Color.BLACK, Color.GREEN
+    );
 
     @Test
     void doNotMoveWrongPlayersFigurine() {
@@ -126,7 +120,7 @@ public class ParadiseGameTest {
     @Test
     void luck2x() {
         game.setColorOnTurn(Color.GREEN);
-        boolean x = game.moveCharacter("GREEN-B", 2, 2);
+        game.moveCharacter("GREEN-B", 2, 2);
         assertEquals(game.getCharacterPosition("GREEN-B"), 22, "When a figure lands on a luck-field, it must be advanced by the numbers rolled");
     }
     @Test
@@ -143,7 +137,7 @@ public class ParadiseGameTest {
     @Test
     void luck1x() {
         game.setColorOnTurn(Color.GREEN);
-        boolean x = game.moveCharacter("GREEN-A", 1, 1);
+        game.moveCharacter("GREEN-A", 1, 1);
         assertEquals(game.getCharacterPosition("GREEN-A"), 16, "When a figure lands on a luck-field, it must be advanced by the numbers rolled");
     }
     @Test

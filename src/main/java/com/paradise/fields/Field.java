@@ -62,7 +62,8 @@ public class Field {
      * @param figurineToMove The figure that was moved on the game board.
      */
     public void executeEventIfEventField(Figurine figurineToMove) {
-        if (figurineToMove.getPosition() instanceof EventField eventField) {
+        if (figurineToMove.getPosition() instanceof EventField) {
+            EventField eventField = (EventField) figurineToMove.getPosition();
             eventField.executeEvent(figurineToMove);
         }
     }
