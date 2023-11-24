@@ -10,10 +10,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <sonar.projectKey>mon-projet-sonar</sonar.projectKey>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <!-- Si authentification nécessaire -->
-        <sonar.login>monTokenSonarQube</sonar.login>
+        <sonar.organization>claude-lakoudji</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
