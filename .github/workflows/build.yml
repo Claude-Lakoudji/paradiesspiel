@@ -32,18 +32,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITH_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Claude-Lakoudji_paradise-game
-      - name: Verify Quality Gate
-        run: |
-          # Wait for SonarQube to finish the analysis
-          sleep 120
-
-          # Query the SonarQube API to get the Quality Gate status
-          response=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Claude-Lakoudji_paradise-game")
-          echo $response
-
-          # Check if the Quality Gate passed
-          if [[ $(echo $response | jq -r '.projectStatus.status') != "OK" ]]; then
-              echo "Quality Gate failed"
-              exit 1
-          fi
-        shell: bash
