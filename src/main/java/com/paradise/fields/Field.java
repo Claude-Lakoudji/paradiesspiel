@@ -63,7 +63,6 @@ public class Field {
      */
     public void executeEventIfEventField(Figurine figurineToMove) {
         if (figurineToMove.getPosition() instanceof EventField eventField) {
-            eventField = (EventField) figurineToMove.getPosition();
             eventField.executeEvent(figurineToMove);
         }
     }
