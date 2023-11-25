@@ -35,7 +35,7 @@ jobs:
       - name: Verify Quality Gate
         run: |
           # Wait for SonarQube to finish the analysis
-          sleep 10
+          sleep 30
 
           # Query the SonarQube API to get the Quality Gate status
           response=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Claude-Lakoudji_paradise-game")
