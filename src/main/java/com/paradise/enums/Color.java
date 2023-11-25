@@ -1,4 +1,4 @@
-package main.java.com.paradise.enums;
+package com.paradise.enums;
 public enum Color {
     /**
      * The color Blue.
@@ -28,6 +28,6 @@ public enum Color {
     /**
      * The color White.
      */
-    WHITE;
+    WHITE
 
 }

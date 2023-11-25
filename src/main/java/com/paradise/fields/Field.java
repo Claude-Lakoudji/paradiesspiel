@@ -1,6 +1,6 @@
-package main.java.com.paradise.fields;
+package com.paradise.fields;
 
-import main.java.com.paradise.Figure;
+import com.paradise.Figurine;
 
 /**
  * The Field class represents a field on the game board. It is the
@@ -47,35 +47,34 @@ public class Field {
      * Moves a figure to the next or previous position on the game board,
      * depending on the figure's movement direction.
      *
-     * @param figureToMove The figure to be moved on the game board.
+     * @param figurineToMove The figure to be moved on the game board.
      */
-    public void moveToNextOrPrev(Figure figureToMove) {
-        Field newPosition = calculateNewPosition(figureToMove);
-        figureToMove.setPosition(newPosition);
-        executeEventIfEventField(figureToMove);
+    public void moveToNextOrPrev(Figurine figurineToMove) {
+        Field newPosition = calculateNewPosition(figurineToMove);
+        figurineToMove.setPosition(newPosition);
+        executeEventIfEventField(figurineToMove);
     }
 
     /**
      * Executes the event of an event field if the new position of the figure
      * is an event field.
      *
-     * @param figureToMove The figure that was moved on the game board.
+     * @param figurineToMove The figure that was moved on the game board.
      */
-    public void executeEventIfEventField(Figure figureToMove) {
-        if (figureToMove.getPosition() instanceof EventField) {
-            EventField newPosition = (EventField) figureToMove.getPosition();
-            newPosition.executeEvent(figureToMove);
+    public void executeEventIfEventField(Figurine figurineToMove) {
+        if (figurineToMove.getPosition() instanceof EventField eventField) {
+            eventField.executeEvent(figurineToMove);
         }
     }
 
     /**
      * Calculates the new position of a figure based on its current movement direction.
      *
-     * @param figureToMove The figure for which the new position should be calculated.
+     * @param figurineToMove The figure for which the new position should be calculated.
      * @return The new position of the figure on the game board.
      */
-    private Field calculateNewPosition(Figure figureToMove) {
-        boolean forward = figureToMove.forward();
+    private Field calculateNewPosition(Figurine figurineToMove) {
+        boolean forward = figurineToMove.forward();
 
         if (forward) {
             return this.getNextField();
