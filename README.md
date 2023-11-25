@@ -3,6 +3,25 @@
 ## Overview
 "Paradise" is a Java-based board game for 2 to 6 players, inspired by the traditional "Game of the Goose". The objective is to be the first player to move all their pieces to Paradise, located at the end of the board.
 
+## Running the Application
+To start the "Paradise" game:
+1. Ensure you have Java and Maven installed on your system.
+2. Clone the game repository to your local machine.
+3. Navigate to the project directory containing the `pom.xml` file using a command-line interface.
+4. Build and install the game using the command `mvn install`.
+5. After a successful build, you can run the game using the command `mvn exec:java`.
+6. Follow the on-screen instructions to play the game.
+
+## Running the Application with Docker
+You can also run the "Paradise" game using Docker. Follow these steps:
+
+1. Ensure you have Docker installed on your system.
+2. Clone the game repository to your local machine.
+3. Navigate to the project directory containing the Dockerfile.
+4. Build the Docker image using the following command: `docker build -t paradisegame .`
+5. Run the Docker container with the following command: `docker run -it paradisegame`
+6. Follow the on-screen instructions to play the game.
+
 ## Game Setup
 - Each player chooses a color and receives two pieces of that color.
 - The game board consists of 64 squares, including a Start field, Paradise, various Event fields, and standard fields.
@@ -26,11 +45,3 @@
 
 ## Winning the Game
 - The first player to move all their pieces to Paradise wins.
-
-## Running the Application
-To start the "Paradise" game:
-1. Ensure you have Java installed on your system.
-2. Download the game files from the repository.
-3. Navigate to the directory where the game files are located using a command-line interface.
-4. Run the game using the command `java -jar ParadiseGame.jar`.
-5. Follow the on-screen instructions to play the game.

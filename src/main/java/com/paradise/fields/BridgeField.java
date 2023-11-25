@@ -1,6 +1,6 @@
-package main.java.com.paradise.fields;
+package com.paradise.fields;
 
-import main.java.com.paradise.Figure;
+import com.paradise.Figurine;
 
 /**
  * The BridgeField class represents an event field with a bridge.
@@ -26,15 +26,15 @@ public class BridgeField extends EventField {
      * Executes the event on the BridgeField by moving the figure six fields forward
      * and executing the event of the destination field if it is an event field.
      *
-     * @param figureToMove The character located on the BridgeField.
+     * @param figurineToMove The character located on the BridgeField.
      */
     @Override
-    public void executeEvent(Figure figureToMove) {
-        if (shouldExecuteEvent(figureToMove)) {
-            moveSixFieldsForward(figureToMove);
+    public void executeEvent(Figurine figurineToMove) {
+        if (shouldExecuteEvent(figurineToMove)) {
+            moveSixFieldsForward(figurineToMove);
             int numberOfFieldsToTraverse = 6;
-            updateTargetPosition(figureToMove, numberOfFieldsToTraverse);
-            executeEventIfEventField(figureToMove);
+            updateTargetPosition(figurineToMove, numberOfFieldsToTraverse);
+            executeEventIfEventField(figurineToMove);
         }
     }
 
@@ -42,26 +42,26 @@ public class BridgeField extends EventField {
      * Moves the figure either to the next or previous field. Executes the
      * BridgeField event if the figure is moving forward.
      *
-     * @param figureToMove The character to be moved.
+     * @param figurineToMove The character to be moved.
      */
     @Override
-    public void moveToNextOrPrev(Figure figureToMove) {
-        if (figureToMove.forward()) {
-            this.executeEvent(figureToMove);
+    public void moveToNextOrPrev(Figurine figurineToMove) {
+        if (figurineToMove.forward()) {
+            this.executeEvent(figurineToMove);
         } else {
-            figureToMove.setPosition(this.getPreviousField());
+            figurineToMove.setPosition(this.getPreviousField());
         }
     }
 
     /**
      * Checks whether the event on the BridgeField should be executed for the given figure.
      *
-     * @param figureToMove The character located on the BridgeField.
+     * @param figurineToMove The character located on the BridgeField.
      * @return true if the event should be executed, otherwise false.
      */
-    private boolean shouldExecuteEvent(Figure figureToMove) {
-        boolean forward = figureToMove.forward();
-        boolean bridgeFieldIsCurrentPosition = figureToMove.getTargetPositionNumber() == this.getPositionNumber();
+    private boolean shouldExecuteEvent(Figurine figurineToMove) {
+        boolean forward = figurineToMove.forward();
+        boolean bridgeFieldIsCurrentPosition = figurineToMove.getTargetPositionNumber() == this.getPositionNumber();
 
         return forward || bridgeFieldIsCurrentPosition;
     }
@@ -69,25 +69,25 @@ public class BridgeField extends EventField {
     /**
      * Moves the figure six fields forward.
      *
-     * @param figureToMove The figure to jump six fields forward.
+     * @param figurineToMove The figure to jump six fields forward.
      */
-    private void moveSixFieldsForward(Figure figureToMove) {
+    private void moveSixFieldsForward(Figurine figurineToMove) {
         Field newField = this.getNextField();
         for (int i = 0; i < 5; i++) {
             newField = newField.getNextField();
         }
-        figureToMove.setPosition(newField);
+        figurineToMove.setPosition(newField);
     }
 
     /**
      * Updates the target position of the figure by the specified number of fields.
      *
-     * @param figureToMove The character whose target position needs to be updated.
+     * @param figurineToMove The character whose target position needs to be updated.
      * @param numberOfFields The number of fields to update the target position.
      */
-    private void updateTargetPosition(Figure figureToMove, int numberOfFields) {
-        int newTargetPositionNumber = figureToMove.getTargetPositionNumber() + numberOfFields;
-        figureToMove.setTargetPositionNumber(newTargetPositionNumber);
+    private void updateTargetPosition(Figurine figurineToMove, int numberOfFields) {
+        int newTargetPositionNumber = figurineToMove.getTargetPositionNumber() + numberOfFields;
+        figurineToMove.setTargetPositionNumber(newTargetPositionNumber);
     }
 
     /**
