@@ -4,7 +4,7 @@ import com.paradise.interfaces.IParadiseGame;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ParadiseGameTest {
+ class ParadiseGameTest {
     private final IParadiseGame game = new ParadiseGame(
             "BLUE-A:0, BLUE-B:62, YELLOW-A:45, YELLOW-B:40, BLACK-A:60, BLACK-B:63, GREEN-A:12, GREEN-B:10",
             Color.BLUE, Color.YELLOW, Color.BLACK, Color.GREEN
@@ -14,7 +14,7 @@ public class ParadiseGameTest {
     void doNotMoveWrongPlayersFigurine() {
         game.setColorOnTurn(Color.BLUE);
         boolean figurineYellowCanBeMove = game.moveCharacter("YELLOW-A");
-        assertFalse(figurineYellowCanBeMove);
+        assertFalse(figurineYellowCanBeMove, "Only the figurine of the player whose turn it is may be moved!");
     }
 
     @Test
@@ -23,7 +23,7 @@ public class ParadiseGameTest {
                 Color.RED, Color.WHITE, Color.BLUE, Color.YELLOW, Color.BLACK, Color.GREEN
         );
         Color[] colors = standardGame.getAllPlayers();
-        assertEquals(6, colors.length);
+        assertEquals(6, colors.length, "The number of players should be exactly the same as the number of colors chosen at the start of the game.");
 
         assertInitialPosition(standardGame, "BLUE-A", "BLUE-B", "RED-A", "RED-B", "WHITE-A", "WHITE-B");
         assertInitialPosition(standardGame, "GREEN-A", "GREEN-B", "BLACK-A", "BLACK-B", "YELLOW-A", "YELLOW-B");
@@ -47,13 +47,13 @@ public class ParadiseGameTest {
         game.setColorOnTurn(Color.BLUE);
         boolean figureCanBeMoved = game.moveCharacter("BLUE-A", 2, 1);
         assertCharacterPosition("BLUE-A", 3);
-        assertTrue(figureCanBeMoved);
+        assertTrue(figureCanBeMoved, "The figurine should have been moved!");
     }
     @Test
     void generate3StandardPlayerFigures() {
         ParadiseGame standardGame = new ParadiseGame(Color.RED, Color.WHITE, Color.BLUE);
         Color[] colors = standardGame.getAllPlayers();
-        assertEquals(3, colors.length);
+        assertEquals(3, colors.length, "The number of players should be exactly the same as the number of colors chosen at the start of the game.");
 
         assertInitialPosition(standardGame, "BLUE-A", "BLUE-B", "RED-A", "RED-B", "WHITE-A", "WHITE-B");
     }
@@ -98,7 +98,7 @@ public class ParadiseGameTest {
     @Test
     void turnForPlayerBlack() {
         game.setColorOnTurn(Color.BLACK);
-        assertEquals(game.getColorOnTurn(), Color.BLACK, "The player with the black color should be on turn.");
+        assertEquals(Color.BLACK, game.getColorOnTurn(), "The player with the black color should be on turn.");
     }
     @Test
     void moveFigureOutOfParadise() {
@@ -109,24 +109,24 @@ public class ParadiseGameTest {
     @Test
     void turnForPlayerYellow() {
         game.setColorOnTurn(Color.YELLOW);
-        assertEquals(game.getColorOnTurn(), Color.YELLOW, "The player with the yellow color should be on turn.");
+        assertEquals(Color.YELLOW, game.getColorOnTurn(), "The player with the yellow color should be on turn.");
     }
     @Test
     void BridgeFieldIsTheTargetField() {
         game.setColorOnTurn(Color.BLUE);
         game.moveCharacter("BLUE-A", 3, 3);
-        assertEquals(game.getCharacterPosition("BLUE-A"), 12, "When a figure lands on a bridge-field, it must be advanced by 6");
+        assertEquals(12, game.getCharacterPosition("BLUE-A"), "When a figure lands on a bridge-field, it must be advanced by 6");
     }
     @Test
     void luck2x() {
         game.setColorOnTurn(Color.GREEN);
         game.moveCharacter("GREEN-B", 2, 2);
-        assertEquals(game.getCharacterPosition("GREEN-B"), 22, "When a figure lands on a luck-field, it must be advanced by the numbers rolled");
+        assertEquals(22, game.getCharacterPosition("GREEN-B"), "When a figure lands on a luck-field, it must be advanced by the numbers rolled");
     }
     @Test
     void turnForPlayerBlue() {
         game.setColorOnTurn(Color.BLUE);
-        assertEquals(game.getColorOnTurn(), Color.BLUE, "The player with the blue color should be on turn.");
+        assertEquals(Color.BLUE, game.getColorOnTurn(), "The player with the blue color should be on turn.");
     }
     @Test
     void moveFigureWhenColorDoesNotExist() {
@@ -138,7 +138,7 @@ public class ParadiseGameTest {
     void luck1x() {
         game.setColorOnTurn(Color.GREEN);
         game.moveCharacter("GREEN-A", 1, 1);
-        assertEquals(game.getCharacterPosition("GREEN-A"), 16, "When a figure lands on a luck-field, it must be advanced by the numbers rolled");
+        assertEquals( 16, game.getCharacterPosition("GREEN-A"), "When a figure lands on a luck-field, it must be advanced by the numbers rolled");
     }
     @Test
     void moveFigureStayInParadise() {
@@ -152,33 +152,33 @@ public class ParadiseGameTest {
         game.setColorOnTurn(Color.BLACK);
         game.moveCharacter("BLACK-A", 1, 2);
         Color winner = game.getWinner();
-        assertEquals(winner, Color.BLACK, "The Player with the color 'BLACK' should be the winner!");
+        assertEquals(Color.BLACK, winner, "The Player with the color 'BLACK' should be the winner!");
     }
     @Test
     void bridgeWithLuck() {
         game.setColorOnTurn(Color.BLUE);
         game.moveCharacter("BLUE-A", 3, 5);
-        assertEquals(game.getCharacterPosition("BLUE-A"), 22, "When a character crosses the bridge, they should advance 6 spaces. If they land on a Lucky Square, they should move forward by the number rolled on the dice");
+        assertEquals(22, game.getCharacterPosition("BLUE-A"), "When a character crosses the bridge, they should advance 6 spaces. If they land on a Lucky Square, they should move forward by the number rolled on the dice");
     }
     @Test
     void moveFigureToEnd() {
         game.setColorOnTurn(Color.BLACK);
         game.moveCharacter("BLACK-A", 1, 2);
         Color winner = game.getWinner();
-        assertEquals(winner, Color.BLACK);
+        assertEquals( Color.BLACK, winner, "The correct color of the winner should be displayed.");
         game.setColorOnTurn(Color.BLUE);
         game.moveCharacter("BLUE-A", 1, 2);
-        assertEquals(game.getCharacterPosition("BLUE-A"), 0, "No figure may be moved after the end of the game.");
+        assertEquals(0, game.getCharacterPosition("BLUE-A"), "No figure may be moved after the end of the game.");
     }
 
     private void assertInitialPosition(IParadiseGame game, String... figureNames) {
         for (String figureName : figureNames) {
-            assertEquals(0, game.getCharacterPosition(figureName));
+            assertEquals(0, game.getCharacterPosition(figureName), "The colors selected at the start of the game should be reusable in the game logic.");
         }
     }
 
     private void assertCharacterPosition(String figureName, int expectedPosition) {
         int position = game.getCharacterPosition(figureName);
-        assertEquals(expectedPosition, position);
+        assertEquals(expectedPosition, position, "The position of the game piece on the board should be accurate.");
     }
 }

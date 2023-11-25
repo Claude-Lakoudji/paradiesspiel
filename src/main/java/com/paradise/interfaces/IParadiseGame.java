@@ -4,10 +4,6 @@ import com.paradise.enums.Color;
 
 public interface IParadiseGame {
 
-    // public ParadiseGame(Color... colors);
-
-    // public ParadiseGame(String conf, Color... colors);
-
     /**
      * This method returns the color of the player currently taking their turn.
      *

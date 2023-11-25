@@ -1,6 +1,4 @@
 package com.paradise.fields;
-
-
 import com.paradise.Figurine;
 
 /**
@@ -10,14 +8,14 @@ import com.paradise.Figurine;
  * @author Claude Lakoudji
  * @version 0.1.0
  */
-public class EventField extends Field {
+public abstract class EventField extends Field {
 
     /**
      * Creates a new event field with the specified position on the game board.
      *
      * @param position The position of the event field on the game board.
      */
-    public EventField(int position) {
+    EventField(int position) {
         super(position);
     }
 

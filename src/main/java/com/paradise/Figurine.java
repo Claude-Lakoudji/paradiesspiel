@@ -75,10 +75,6 @@ public class Figurine {
         return diceValues;
     }
 
-    public int getStepsToTarget() {
-        return this.stepsToTarget;
-    }
-
     public void setStepsToTarget(int steps) {
         this.stepsToTarget = steps;
     }

@@ -7,6 +7,8 @@ import com.paradise.fields.LuckField;
 import com.paradise.fields.ParadiseField;
 import com.paradise.fields.UpturnField;
 import com.paradise.interfaces.IParadiseGame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +23,8 @@ public class ParadiseGame implements IParadiseGame {
     private final Dice numberDice = new Dice(6);
     private Dice colorDice;
     private Player currentPlayer;
+    private static final String PLAYER = "Player";
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParadiseGame.class);
 
     public ParadiseGame(Color... colors) {
         initializeGameBoard();
@@ -41,9 +45,9 @@ public class ParadiseGame implements IParadiseGame {
     public void setColorOnTurn(Color color) {
         currentPlayer = players.stream().filter(p -> p.getColor() == color).findFirst().orElse(null);
         if (currentPlayer == null) {
-            System.out.println("Invalid color!");
+            LOGGER.info("Invalid color!");
         } else {
-            System.out.println("Player " + currentPlayer.getColor() + " is the current player.");
+            LOGGER.info("{}{} is the current player.", PLAYER, currentPlayer.getColor());
         }
     }
 
@@ -101,54 +105,54 @@ public class ParadiseGame implements IParadiseGame {
      */
     public void start() {
         // Start the game
-        System.out.println("");
-        System.out.println("The game is starting.");
-        System.out.println("Determining the first player...");
-        System.out.println("");
+        LOGGER.info("");
+        LOGGER.info("The game is starting.");
+        LOGGER.info("Determining the first player...");
+        LOGGER.info("");
 
         // Determine the current player
         Color[] playerColors = getAllPlayers();
         int rolledColorIndex = colorDice.roll() - 1;
         setColorOnTurn(playerColors[rolledColorIndex]);
-        System.out.println("Player " + getColorOnTurn() + " begins.");
+        LOGGER.info("{} {} begins.", getColorOnTurn(), PLAYER);
 
         Scanner scanner = new Scanner(System.in);
 
         // Play rounds
         boolean gameRunning = true;
         while (gameRunning) {
-            System.out.println();
-            System.out.println(toString());
-            System.out.println();
+            LOGGER.info("");
+            LOGGER.info("");
+            LOGGER.info("");
 
             // Roll the dice
             int roll1 = numberDice.roll();
             int roll2 = numberDice.roll();
             int[] totalRoll = {roll1, roll2};
 
-            System.out.println("Player " + getColorOnTurn() + " rolls the dice: ");
-            System.out.println(roll1 + " and " + roll2);
+            LOGGER.info("Player {} rolls the dice: ", getColorOnTurn());
+            LOGGER.info("{} and {}", roll1, roll2);
 
             // Move a figure
             String figureName = "";
             while (figureName.isEmpty()) {
-                System.out.println("Which figure should be moved?");
+                LOGGER.info("Which figure should be moved?");
                 String input = scanner.nextLine().toUpperCase();
                 if (!input.isEmpty()) {
                     figureName = input;
                 }
             }
-            System.out.println("");
+            LOGGER.info("");
             boolean successfullyMoved = moveCharacter(figureName, totalRoll);
 
             if (!successfullyMoved) {
-                System.out.println("Figurine not found or couldn't be moved.");
+                LOGGER.info("Figurine not found or couldn't be moved.");
             }
 
             // Check for game end
             Color winner = getWinner();
             if (winner != null) {
-                System.out.println("Player " + winner + " has won!");
+                LOGGER.info("{}{} has won!", PLAYER, winner);
                 gameRunning = false;
                 continue;
             }
@@ -162,72 +166,78 @@ public class ParadiseGame implements IParadiseGame {
         scanner.close();
 
         // End the game
-        System.out.println("The game is over.");
+        LOGGER.info("The game is over.");
     }
 
     public String toString() {
-        // Print the game board
-        /*
-         * String gameBoardString = "Game Board:\n"; for (int i = 0; i < 64; i++) {
-         * gameBoardString += String.format("%02d: %s\n", i,
-         * gameBoard[i].getDescription()); }
-         */
-
         // Print figures
         StringBuilder figuresString = new StringBuilder("Figures:\n");
         for (Player player : players) {
             for (Figurine figurine : player.getCharacters()) {
-                figuresString.append(String.format("%s: %d\n", figurine.getName(), figurine.getPosition().getPositionNumber()));
+                figuresString.append(String.format("%s: %d %n", figurine.getName(), figurine.getPosition().getPositionNumber()));
             }
         }
 
         // Print current player
-        String currentPlayerString = String.format("Current Player: %s\n", currentPlayer.getColor());
+        String currentPlayerString = String.format("Current"+PLAYER+" %s %n", currentPlayer.getColor());
 
         return figuresString + currentPlayerString;
     }
 
     /**
-     * This method initializes the game board with the corresponding field types and
-     * connects them.
+     * Initializes the game board with a sequence of fields, each representing a different type based on its position.
+     * The method iterates over a fixed number of positions, initializes a field for each position, and then connects
+     * each field with its previous field to form a linked structure.
      */
     private void initializeGameBoard() {
         for (int i = 0; i < 64; i++) {
-            Field field;
-            if (i == 5 || i == 9) {
-                field = new Field(i); // Misfortune TODO
-            } else if (i == 6) {
-                field = new BridgeField(i);
-            } else if (i == 14 || i == 18 || i == 27 || i == 32 || i == 36 || i == 50) {
-                field = new LuckField(i);
-            } else if (i == 19) {
-                field = new Field(i); // Labyrinth TODO
-            } else if (i == 24 || i == 41 || i == 54) {
-                field = new Field(i); // Disaster TODO
-            } else if (i == 52) {
-                field = new UpturnField(i);
-            } else if (i == 58) {
-                field = new Field(i); // New Beginning TODO
-            } else if (i == 63) {
-                field = new ParadiseField(i);
-            } else {
-                field = new Field(i);
-            }
-
-            // Connect the current field with the previous field
-            if (i > 0) {
-                Field previousField = this.gameBoard.get(i - 1);
-                field.setPreviousField(previousField);
-                previousField.setNextField(field);
-            }
-
+            Field field = initField(i);
+            connectCurrentFieldWithPrevious(i, field);
             this.gameBoard.add(field);
         }
     }
 
     /**
+     * Initializes and returns a field based on the given position index.
+     * The type of field is determined by the index: certain indices correspond to special types of fields,
+     * like 'Misfortune', 'Bridge', 'Luck', etc. Default field type is used for indices without specific types.
+     *
+     * @param i The index representing the position on the game board.
+     * @return A Field object corresponding to the given index.
+     */
+    private Field initField(int i) {
+        return switch (i) {
+            case 5, 9 -> new Field(i); // Misfortune
+            case 6 -> new BridgeField(i);
+            case 14, 18, 27, 32, 36, 50 -> new LuckField(i);
+            case 19 -> new Field(i); // Labyrinth
+            case 24, 41, 54 -> new Field(i); // Disaster
+            case 52 -> new UpturnField(i);
+            case 58 -> new Field(i); // New Beginning
+            case 63 -> new ParadiseField(i);
+            default -> new Field(i);
+        };
+    }
+
+    /**
+     * Connects the current field with its previous field if it's not the first field.
+     * This method sets up a bidirectional link between the current field and the previous one,
+     * effectively creating a linked structure of fields on the game board.
+     *
+     * @param i The index of the current field.
+     * @param field The current field to be connected with its predecessor.
+     */
+    private void connectCurrentFieldWithPrevious(int i, Field field) {
+        if (i > 0) {
+            Field previousField = this.gameBoard.get(i - 1);
+            field.setPreviousField(previousField);
+            previousField.setNextField(field);
+        }
+    }
+
+    /**
      * This method sets the players' figures on the start field.
-     * @param colors the colors of the players'figures
+     * @param colors the colors of the players' figures
      */
     private void initializePlayers(Color... colors) {
         colorDice = new Dice(colors.length);
